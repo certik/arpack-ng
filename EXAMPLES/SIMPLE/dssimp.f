@@ -206,10 +206,10 @@ c     |              NEV <= MAXNEV                    |
 c     |          NEV + 1 <= NCV <= MAXNCV             |
 c     %-----------------------------------------------%
 c
-      nev   = 4
+      nev   = 9
       ncv   = 10
       bmat  = 'I'
-      which = 'LM'
+      which = 'SM'
 c
       if ( n .gt. maxn ) then
          print *, ' ERROR with _SSIMP: N is greater than MAXN '
@@ -411,6 +411,7 @@ c
                 call daxpy(n, -d(j,1), v(1,j), 1, ax, 1)
                 d(j,2) = dnrm2(n, ax, 1)
                 d(j,2) = d(j,2) / abs(d(j,1))
+                d(j,1) = d(j,1) - 10
 c
  20          continue
 c
@@ -488,6 +489,7 @@ c
       parameter         ( one = 1.0D+0 ) 
 c
       call tv(nx,v(1),w(1))
+      w = w + 10*v
       return
       end
 c
@@ -507,7 +509,7 @@ c     where T is a nx by nx tridiagonal matrix with DD on the
 c     diagonal, DL on the subdiagonal, and DU on the superdiagonal.
 c     
 c
-      dd  = four 
+      dd  = four  - 6
       dl  = -one 
       du  = -one
 c 
