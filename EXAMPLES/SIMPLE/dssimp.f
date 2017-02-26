@@ -178,7 +178,7 @@ c     | The following sets dimensions for this problem. |
 c     %-------------------------------------------------%
 c
       nx = 10
-      n = nx*nx
+      n = nx
 c
 c     %-----------------------------------------------%
 c     |                                               | 
@@ -207,7 +207,7 @@ c     |          NEV + 1 <= NCV <= MAXNCV             |
 c     %-----------------------------------------------%
 c
       nev   = 4
-      ncv   = 20 
+      ncv   = 10
       bmat  = 'I'
       which = 'LM'
 c
@@ -484,28 +484,10 @@ c
       subroutine av (nx, v, w)
       integer           nx, j, lo, n2
       Double precision
-     &                  v(nx*nx), w(nx*nx), one, h2
+     &                  v(nx), w(nx), one, h2
       parameter         ( one = 1.0D+0 ) 
 c
       call tv(nx,v(1),w(1))
-      call daxpy(nx, -one, v(nx+1), 1, w(1), 1)
-c
-      do 10 j = 2, nx-1
-         lo = (j-1)*nx
-         call tv(nx, v(lo+1), w(lo+1))
-         call daxpy(nx, -one, v(lo-nx+1), 1, w(lo+1), 1)
-         call daxpy(nx, -one, v(lo+nx+1), 1, w(lo+1), 1)
-  10  continue 
-c
-      lo = (nx-1)*nx
-      call tv(nx, v(lo+1), w(lo+1))
-      call daxpy(nx, -one, v(lo-nx+1), 1, w(lo+1), 1)
-c
-c     Scale the vector w by (1/h^2), where h is the mesh size
-c
-      n2 = nx*nx
-      h2 = one / dble((nx+1)*(nx+1))
-      call dscal(n2, one/h2, w, 1)
       return
       end
 c
