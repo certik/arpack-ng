@@ -233,13 +233,13 @@ c
              print *, ' '
           else
              nconv =  iparam(5)
-             do 20 j=1, nconv
+             do j=1, nconv
                 call av(nx, v(1,j), ax)
                 call daxpy(n, -d(j,1), v(1,j), 1, ax, 1)
                 d(j,2) = dnrm2(n, ax, 1)
                 d(j,2) = d(j,2) / abs(d(j,1))
                 d(j,1) = d(j,1) - 10
- 20          continue
+             end do
              call dmout(6, nconv, 2, d, maxncv, -6,
      &            'Ritz values and relative residuals')
           end if
