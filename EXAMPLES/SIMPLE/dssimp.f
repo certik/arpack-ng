@@ -205,15 +205,17 @@ c
       iparam(3) = maxitr
       iparam(7) = mode1
 
- 10   continue
-         call dsaupd ( ido, bmat, n, which, nev, tol, resid, 
+      do
+         call dsaupd ( ido, bmat, n, which, nev, tol, resid,
      &                 ncv, v, ldv, iparam, ipntr, workd, workl,
      &                 lworkl, info )
 
          if (ido .eq. -1 .or. ido .eq. 1) then
             call av (nx, workd(ipntr(1)), workd(ipntr(2)))
-            go to 10
+         else
+            exit
          end if
+      end do
       if ( info .lt. 0 ) then
          print *, ' '
          print *, ' Error with _saupd, info = ', info
