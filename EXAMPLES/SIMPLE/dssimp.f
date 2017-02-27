@@ -509,7 +509,7 @@ c     where T is a nx by nx tridiagonal matrix with DD on the
 c     diagonal, DL on the subdiagonal, and DU on the superdiagonal.
 c     
 c
-      dd  = four  - 6
+      dd  = four
       dl  = -one 
       du  = -one
 c 
